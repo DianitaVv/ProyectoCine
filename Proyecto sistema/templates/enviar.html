@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar correo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script> 
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">Inicio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/enviar">Enviar Correo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/crearpdf">Crear PDF</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/descargar">Descargar Archivo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/SweetAlerts">Sweet Alerts</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+     
+      <div class="container mt-4">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-center">Formulario</h5>
+                <form>
+                  <div class="form-group">
+                    <label for="usuario">Correo:</label>
+                    <input type="email" class="form-control" id="usuario" placeholder="usuarioejemplo@gmail.com" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="asunto">Asunto:</label>
+                    <input type="text" class="form-control" id="asunto" placeholder="Asunto..."  required>
+                  </div>
+                  <div class="form-group">
+                    <label for="texto">Texto:</label>
+                    <input type="text" class="form-control" id="texto" placeholder="Texto..."  required>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-block" onclick="enviarCorreo()">Enviar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        function enviarCorreo() {
+          emailjs.init("2_aMNqJM-i8A3QKlR");
+          var usuario = document.getElementById("usuario").value;
+          var asunto = document.getElementById("asunto").value;
+          var texto = document.getElementById("texto").value;
+
+          var params = {
+            from_name: 'usuariopruebaimap@gmail.com',
+            to_name: usuario,
+            subject: asunto,
+            message: texto
+          };
+
+          emailjs.send("service_d4q9prf", "template_9v4650y", params)
+            .then(function (response) {
+              alert("Correo enviado");
+            }, function (error) {
+              alert("Error al enviar el correo");
+            });
+        }
+      </script>
+</body>
+</html>
